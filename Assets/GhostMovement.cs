@@ -30,9 +30,9 @@ public class GhostMovement : MonoBehaviour
                 agent.destination = new Vector3(x, 0.0f, z);
             }
         } else if (state == GhostState.PLAYER_SEEN) {
-           agent.destination = player.transform.position;
+            agent.destination = player.transform.position;
         } else if (state == GhostState.PLAYER_CAUGHT) {
-            Debug.Log("hello?");
+            Debug.Log("Game Over");
             //Game over UI
         }
     }
