@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GhostMovement : MonoBehaviour
 {
-    enum GhostState {
+    public enum GhostState {
         WANDERING, 
         PLAYER_SEEN,
         PLAYER_CAUGHT,
         PLAYER_EATS_CHERRY
     };
     
-    GhostState state = GhostState.WANDERING;
+    public GhostState state = GhostState.WANDERING;
     public GameObject player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,8 +34,12 @@ public class GhostMovement : MonoBehaviour
         } else if (state == GhostState.PLAYER_SEEN) {
             agent.destination = player.transform.position;
         } else if (state == GhostState.PLAYER_CAUGHT) {
-            Debug.Log("Game Over");
-            //Game over UI
+            //Restarts the game
+            //Possible extension: Adding UI screen
+            //W1.2 (Optional extension code)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else if (state == GhostState.PLAYER_EATS_CHERRY) {
+            //
         }
     }
 

@@ -9,7 +9,6 @@ public class CherryScript : MonoBehaviour
 
 	private float spawned;
 	private float spawnTime;
-
 	void Start () 
 	{
 		Respawn ();
@@ -27,17 +26,17 @@ public class CherryScript : MonoBehaviour
 
 	void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject.name != "Ghost") 
+		if (other.gameObject.name != "Ghost")
 		{
-			Respawn ();
+			Respawn();
 		}
 	}
 
 	void OnCollisionStay(Collision other)
 	{
-		if (other.gameObject.name != "Ghost") 
+		if (other.gameObject.name != "Ghost")
 		{
-			Respawn ();
+			Respawn();
 		}
 	}
 
