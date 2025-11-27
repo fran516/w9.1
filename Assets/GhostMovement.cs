@@ -9,21 +9,24 @@ public class GhostMovement : MonoBehaviour
         WANDERING, 
         PLAYER_SEEN,
         PLAYER_CAUGHT,
-        PLAYER_EATS_CHERRY
+        RETURN_HOME
     };
     
     public GhostState state = GhostState.WANDERING;
     public GameObject player;
+    Vector3 startPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool cherryStatus = player.GetComponent<PlayerCherryCollision>().cherryMode;
+        Debug.Log(startPosition);
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         if (state == GhostState.WANDERING) {
             if (agent.remainingDistance <= 1.0f) {
@@ -31,15 +34,25 @@ public class GhostMovement : MonoBehaviour
                 float z = Random.Range(-75.0f,75.0f);
                 agent.destination = new Vector3(x, 0.0f, z);
             }
-        } else if (state == GhostState.PLAYER_SEEN) {
+        } 
+        else if (state == GhostState.PLAYER_SEEN) {
             agent.destination = player.transform.position;
-        } else if (state == GhostState.PLAYER_CAUGHT) {
+            if (state == GhostState.PLAYER_SEEN && agent.remainingDistance <= 1.0f) {
+               state = GhostState.PLAYER_CAUGHT;
+            } else if (cherryStatus == true) {
+                state = GhostState.RETURN_HOME;
+            }
+        } 
+        
+        if (state == GhostState.PLAYER_CAUGHT) {
             //Restarts the game
             //Possible extension: Adding UI screen
             //W1.2 (Optional extension code)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        } else if (state == GhostState.PLAYER_EATS_CHERRY) {
-            //
+        } else if (state == GhostState.RETURN_HOME) {
+            agent.destination = startPosition;
+            StartCoroutine(Respawn());
+            Debug.Log("meow");
         }
     }
 
@@ -55,5 +68,10 @@ public class GhostMovement : MonoBehaviour
             state = GhostState.PLAYER_CAUGHT;
             player = other.gameObject;
         }
+    }
+
+    IEnumerator Respawn() {
+        yield return new WaitForSeconds(2);
+        state = GhostState.WANDERING;
     }
 }

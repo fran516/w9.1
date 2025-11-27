@@ -29,6 +29,7 @@ public class CherryScript : MonoBehaviour
 		if (other.gameObject.name != "Ghost")
 		{
 			Respawn();
+			
 		}
 	}
 
@@ -37,6 +38,7 @@ public class CherryScript : MonoBehaviour
 		if (other.gameObject.name != "Ghost")
 		{
 			Respawn();
+			
 		}
 	}
 

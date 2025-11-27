@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class PlayerCherryCollision : MonoBehaviour
+{
+    public bool cherryMode = false;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+   void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.name == "Cherry")
+		{
+			cherryMode = true;
+		}
+	}
+}
