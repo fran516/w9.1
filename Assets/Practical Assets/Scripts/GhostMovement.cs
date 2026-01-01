@@ -26,7 +26,6 @@ public class GhostMovement : MonoBehaviour
     void Update()
     {
         bool cherryStatus = player.GetComponent<PlayerCherryCollision>().cherryMode;
-        Debug.Log(startPosition);
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         if (state == GhostState.WANDERING) {
             if (agent.remainingDistance <= 1.0f) {
@@ -52,7 +51,6 @@ public class GhostMovement : MonoBehaviour
         } else if (state == GhostState.RETURN_HOME) {
             agent.destination = startPosition;
             StartCoroutine(Respawn());
-            Debug.Log("meow");
         }
     }
 
